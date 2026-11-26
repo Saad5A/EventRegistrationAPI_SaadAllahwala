@@ -1,0 +1,6 @@
+@EventRegistrationAPI_SaadAllahwala_HostAddress = http://localhost:5226
+
+GET {{EventRegistrationAPI_SaadAllahwala_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
