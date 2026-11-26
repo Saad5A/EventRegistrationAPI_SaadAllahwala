@@ -1,6 +1,8 @@
 ﻿using EventRegistrationAPI_SaadAllahwala.Data;
 using EventRegistrationAPI_SaadAllahwala.DTOs;
+using EventRegistrationAPI_SaadAllahwala.Models;
 using Microsoft.EntityFrameworkCore;
+    
 
 namespace EventRegistrationAPI_SaadAllahwala.Services
 
@@ -48,6 +50,31 @@ namespace EventRegistrationAPI_SaadAllahwala.Services
                     SpotsLeft = e.Capacity - e.Registrations.Count()
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<EventDto> CreateEventAsync(CreateEventDto dto)
+        {
+            var campusEvent = new Event
+            {
+                Title = dto.Title,
+                Location = dto.Location,
+                EventDate = dto.EventDate,
+                Capacity = dto.Capacity
+            };
+
+            _context.Events.Add(campusEvent);
+            await _context.SaveChangesAsync();
+
+            return new EventDto
+            {
+                EventId = campusEvent.EventId,
+                Title = campusEvent.Title,
+                Location = campusEvent.Location,
+                EventDate = campusEvent.EventDate,
+                Capacity = campusEvent.Capacity,
+                RegisteredCount = 0,
+                SpotsLeft = campusEvent.Capacity
+            };
         }
     }
 }

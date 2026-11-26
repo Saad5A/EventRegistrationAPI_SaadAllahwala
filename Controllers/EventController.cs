@@ -35,5 +35,14 @@ namespace EventRegistrationAPI_SaadAllahwala.Controllers
 
             return Ok(campusEvent);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<EventDto>> CreateEvent(CreateEventDto dto)
+        {
+            var campusEvent = await _eventService.CreateEventAsync(dto);
+
+            return CreatedAtAction(nameof(GetEvent),
+                new { id = campusEvent.EventId }, campusEvent);
+        }
     }
 }
