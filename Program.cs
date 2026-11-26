@@ -1,5 +1,6 @@
 using EventRegistrationAPI_SaadAllahwala.Data;
 using Microsoft.EntityFrameworkCore;
+using EventRegistrationAPI_SaadAllahwala.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddSwaggerGen();
 //---------------------X-------------------------------
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IEventService, EventService>();
 
 //---------------------X-------------------------------
 
